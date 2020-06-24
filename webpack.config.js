@@ -9,12 +9,15 @@ module.exports = (env, args) => {
   return {
     entry: './index.js',
     output: {
-      path: path.resolve(__dirname, 'dist');
+      path: path.resolve(__dirname, 'dist'),
       filename: isProductionMode ? '[name].[contenthash].js' : '[name].[hash].js'
     },
     plugins: [
       new HtmlWebpackPlugin({
         template: 'index.html'
+      }),
+      new WasmPackPlugin({
+        crateDirectory: path.resolve(__dirname, '.')
       }),
       new webpack.ProvidePlugin({
         TextDecoder: ['text-encoding', 'TextDecoder'],
